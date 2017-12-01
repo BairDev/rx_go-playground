@@ -29,7 +29,7 @@ func watchSimple() {
 	}
 	
 	// multiple value? what does that mean?
-	rxIterable, _ := iterable.New([]interface{}{1, 2, 3, 4, errors.New("bang"), 5}) // can pour into this anything
+	rxIterable, _ := iterable.New([]interface{}{1, 2, 3, 'a', errors.New("bang"), 5}) // can pour into this anything
 	source := observable.From(rxIterable)
 	sub := source.Subscribe(watcher)
 	
