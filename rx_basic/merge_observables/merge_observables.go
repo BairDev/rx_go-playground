@@ -34,11 +34,17 @@ func Merge(observable1 observable.Observable, observable2 observable.Observable,
 		fmt.Println("One subscription closed.")
 		// merged_channel.close() // this is too early
 	})
-	
+
 	waitGroup.Add(2)
-	// waitGroup.Add(1)
 	observable1.Subscribe(observer.New(onNext, onDone))
 	observable2.Subscribe(observer.New(onNext, onDone))
+
+	// go func() {
+	// 	// waitGroup.Add(1)
+	// 	observable1.Subscribe(observer.New(onNext, onDone))
+	// 	observable2.Subscribe(observer.New(onNext, onDone))
+    //     close(merged_channel)
+    // }()
 
 	return observable.Observable(merged_channel)
 }
