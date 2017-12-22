@@ -8,6 +8,14 @@ Using the RxGo library was my first guess how to start, but it might be a [bad d
 
 [RxGo](https://github.com/ReactiveX/RxGo) is apparently still work in progress, I hope that it is and will be a vivid project.
 
+
+### Dependencies
+
+The first and obvious dependency is the package **RxGo**: `go get -u github.com/reactivex/rxgo`.
+I tried to install the Golang Iterator package, but this never worked out (`go get google.golang.org/api/iterataor`).
+
+It is also important to note, that I'm using the iterators of *RxGo* here and I did not find a way to use my own iterators yet.
+
 ### Compiling
 
 You can compile the most simple test program only for now. It is more or less C&P from the introduction to *RxGo*.
