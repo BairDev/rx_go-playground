@@ -10,5 +10,9 @@ func GetSimpleObservable() observable.Observable {
 
 	// here is room for modifications
 	source := observable.From(rxIterable)
-	return source
+	return source.Take(3)
+}
+
+func GetIntObservable(numList iterable.Iterable) observable.Observable {
+	return observable.From(numList)
 }
