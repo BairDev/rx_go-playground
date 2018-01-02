@@ -9,7 +9,10 @@ import (
 )
 
 func Merge(observable1 observable.Observable, observable2 observable.Observable, waitGroup *sync.WaitGroup) observable.Observable {
-	merged_channel := make(chan interface{})
+	merged_channel := make(chan interface{}) // not buffered, synchronous: https://stackoverflow.com/a/5983572/2092322
+
+	observables_number := 2
+	observables_closed := 0
 
 	onNext := handlers.NextFunc(func(item interface{}) {
 		switch item := item.(type) {
@@ -32,7 +35,12 @@ func Merge(observable1 observable.Observable, observable2 observable.Observable,
 	onDone := handlers.DoneFunc(func() {
 		defer waitGroup.Done() // defer or not ?
 		fmt.Println("One subscription closed.")
-		// merged_channel.close() // this is too early
+		
+		observables_closed = observables_closed + 1
+		if observables_closed == observables_number {
+			fmt.Println("Closing merged channel.")
+			close(merged_channel)
+		}
 	})
 
 	waitGroup.Add(2)

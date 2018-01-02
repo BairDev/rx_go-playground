@@ -27,3 +27,7 @@ For compiling I'm currently using this command (in `rx_go/src/test-rx/`):
 
     /your/path/to/rx_go/bin/rx1
     # -> 20
+
+#### Building & executing the *play programm*
+
+In */your/path/to/go/src/rx_go$:* `go build -o /your/path/to/go/bin/play-rx play-rx/play-rx.go && ../../bin/play-rx`
