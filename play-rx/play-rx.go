@@ -20,6 +20,17 @@ func printLater() {
 	fmt.Println("This.")
 }
 
+func multiplierMap(number interface{}) interface{} {
+	numericalVal, ok := number.(int)
+	if ok {
+		return (numericalVal * 3)
+	} else {
+		fmt.Println("No number in multiplierMap.")
+	}
+
+	return 0
+}
+
 func main() {
 
 	printLater()
@@ -41,4 +52,10 @@ func main() {
 	<-subscriptionMerged
 
 	waitGroup.Wait()
+
+	rxNumIterable4, _ := iterable.New([]interface{}{10, 20, 30, 20, 10})
+	mappingObservable := simple_observable.GetIntObservable(rxNumIterable4).Map(multiplierMap)
+	subscriptionMapped := mappingObservable.Subscribe(simple_observer.GetSimpleObserver())
+	<-subscriptionMapped
+
 }
