@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 	"rx_go/rx_basic/merge_observables"
+	"rx_go/rx_basic/mimic_delay_observable"
 	"rx_go/rx_basic/simple_observable"
 	"rx_go/rx_basic/simple_observer"
 	"sync"
@@ -51,6 +52,7 @@ func main() {
 	subscriptionMerged := merge_observables.Merge(&waitGroup, observables).Subscribe(simple_observer.GetSimpleObserver())
 	<-subscriptionMerged
 
+	// this is a blocking wait
 	waitGroup.Wait()
 
 	rxNumIterable4, _ := iterable.New([]interface{}{10, 20, 30, 20, 10})
@@ -58,4 +60,7 @@ func main() {
 	subscriptionMapped := mappingObservable.Subscribe(simple_observer.GetSimpleObserver())
 	<-subscriptionMapped
 
+	delayingObservable := mimic_delay_observable.GetWithDelayingEmitter()
+	subscriptionWait := delayingObservable.Subscribe(simple_observer.GetSimpleObserver())
+	<-subscriptionWait
 }
