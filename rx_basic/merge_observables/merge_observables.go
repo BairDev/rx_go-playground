@@ -9,7 +9,7 @@ import (
 	"github.com/reactivex/rxgo/observer"
 )
 
-func Merge(waitGroup *sync.WaitGroup, observables ...observable.Observable) observable.Observable {
+func Merge(waitGroup *sync.WaitGroup, observables []observable.Observable) observable.Observable {
 	merged_channel := make(chan interface{}) // not buffered, synchronous: https://stackoverflow.com/a/5983572/2092322
 
 	observables_number := len(observables)

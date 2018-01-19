@@ -8,6 +8,7 @@ import (
 	"sync"
 
 	"github.com/reactivex/rxgo/iterable"
+	"github.com/reactivex/rxgo/observable"
 )
 
 // synchronizing pattern, actually for main package/method https://stackoverflow.com/a/26928625/2092322
@@ -34,7 +35,9 @@ func main() {
 	observable2 := simple_observable.GetIntObservable(rxNumIterable2)
 	observable3 := simple_observable.GetIntObservable(rxNumIterable3)
 
-	subscriptionMerged := merge_observables.Merge(&waitGroup, observable1, observable2, observable3).Subscribe(simple_observer.GetSimpleObserver())
+	observables := []observable.Observable{observable1, observable2, observable3}
+
+	subscriptionMerged := merge_observables.Merge(&waitGroup, observables).Subscribe(simple_observer.GetSimpleObserver())
 	<-subscriptionMerged
 
 	waitGroup.Wait()
