@@ -47,12 +47,5 @@ func Merge(waitGroup *sync.WaitGroup, observables []observable.Observable) obser
 		observables[i].Subscribe(observer.New(onNext, onDone))
 	}
 
-	// go func() {
-	// 	// waitGroup.Add(1)
-	// 	observable1.Subscribe(observer.New(onNext, onDone))
-	// 	observable2.Subscribe(observer.New(onNext, onDone))
-	//     close(merged_channel)
-	// }()
-
 	return observable.Observable(merged_channel)
 }
